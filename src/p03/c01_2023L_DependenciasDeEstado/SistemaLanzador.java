@@ -4,18 +4,25 @@ public class SistemaLanzador {
 	
 	public static void main(String[] args) {
 		
+		
 		//TODO VARIABLES 
-			// TODO Parque
-		Parque parque = new Parque(); //Parentesis por que es un objeto
-		parque.entrarAlParque("A"); //Esto es para que llame a la puerta de la clase Parque del metodo entrarAlParque
+			// TODO Juego
+		Juego enemigo = new Juego(); //Parentesis por que es un objeto
+		//enemigo.ActividadEnemiga(1, interfaz); //Esto es para que llame a la puerta de la clase Parque del metodo entrarAlParque
+		
+		Juego aliado = new Juego(); //Parentesis por que es un objeto
+		//aliado.ActividadAliada(2, interfaz); //Esto es para que llame a la puerta de la clase Parque del metodo entrarAlParque
+		
+		IJuego personaje = null;
+		IJuego interfaz = null;
 		
 		// TODO Crear los hilos
 		// TODO Lanzar los hilos
 		
-		Thread hilo_a = new Thread(new ActividadEntradaPuerta(parque, "A"));
-		hilo_a.start();
-		Thread hilo_b = new Thread(new ActividadEntradaPuerta(parque, "B"));
-		hilo_b.start();
+		Thread hilo_Enemigo = new Thread(new ActividadEnemiga(1, personaje));
+		hilo_Enemigo.start();
+		Thread hilo_Aliado = new Thread(new ActividadEnemiga(2, interfaz));
+		hilo_Aliado.start();
 		
 		
 	}
