@@ -9,7 +9,7 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 	private int tipoAliado; //Es un objeto, asi que lo declaro asi
 
 	// TODO Puerta
-	private IJuego IJuego; //Es un string, cadena de caracteres
+	private IJuego IJuego; //Es un tipo IJuego
 	
 	// TODO Constructor
 	
