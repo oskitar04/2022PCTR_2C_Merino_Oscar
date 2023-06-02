@@ -3,6 +3,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 
+
 public class ActividadAliada implements Runnable {//El implements es para que sea un clase hilo
 
 	// TODO Parque
@@ -10,6 +11,8 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 
 	// TODO Puerta
 	private IJuego IJuego; //Es un tipo IJuego
+	
+	private SistemaLanzador sistemalanzador;
 	
 	// TODO Constructor
 	
@@ -20,13 +23,16 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 	
 	@Override
 	public void run() {
+		this.sistemalanzador = sistemalanzador;
 		// TODO Auto-generated method stub
-		for(int = 0; ; i++) {
+		for(int i = 0; ; i++) {
 			int mimir = (int) Math.random()*5+1;
 			try {
 				// TODO Dormir aleatorio 1-5s	
 				Thread.sleep(mimir*1000);
-				tipoEnemigo.entrarAlParque(puerta);
+				//sistemaLanzador.hilo_enemigo(puerta);
+				//sistemalanzador.mimirEnemigo();
+				System.out.println("El Enemigo duerme");
 			}catch(InterruptedException e) {
 				e.printStackTrace();
 			}		
