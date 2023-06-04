@@ -16,9 +16,9 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 	
 	// TODO Constructor
 	
-	public ActividadAliada(int tipoAliado, IJuego IJuego) {
+	public ActividadAliada(int tipoAliado, IJuego iJuego) {
 		this.tipoAliado = tipoAliado; //El this se utiliza para referirme a mi clase
-		this.IJuego = IJuego;
+		this.IJuego = iJuego;
 	}
 	
 	@Override
@@ -73,5 +73,4 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 	*/
 		
 		//ACABAR ESTA PARTE
-		//Thread.sleep(random(1000-5000)));
-} 
+		//Thread.sleep(random(1000-5000))); 
