@@ -14,9 +14,6 @@ public class ActividadEnemiga implements Runnable {//El implements es para que s
 	// TODO Puerta
 	private IJuego iJuego; //Es un tipo IJuego del interfaz
 	
-	private int MAXENEMIGOS; //Numero maximo de enemigos
-	private int MINENEMIGOS;
-	private SistemaLanzador sistemalanzador;
 	// TODO Constructor 
 	
 	public ActividadEnemiga(int tipoEnemigo, IJuego iJuego) {
@@ -28,7 +25,7 @@ public class ActividadEnemiga implements Runnable {//El implements es para que s
 	public void run() {
 		//this.sistemalanzador = sistemalanzador;
 		// TODO Auto-generated method stub
-		for(int i = 0; i< MAXENEMIGOS ; i++) {
+		for(int i = 0; i< 8 ; i++) {
 			int mimir = (int) Math.random()*5+1;
 			//this.juego.iJuego(tipoEne);
 			try {

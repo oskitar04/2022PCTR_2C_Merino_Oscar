@@ -64,14 +64,3 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 		
 
 	}
-/*	public void DormirHilo{
-		Random numero = new Random();
-		int mimir = numero.nextInt(4000) + 1000; //El 100 es por si da 0 para que se le sume  el segundo
-        System.out.println("El hilo se dormirá durante " + mimir + " milisegundos");
-        Thread.sleep(mimir); // Duerme el hilo durante el tiempo generado
-        System.out.println("El hilo ha despertado");
-	}
-	*/
-		
-		//ACABAR ESTA PARTE
-		//Thread.sleep(random(1000-5000))); 

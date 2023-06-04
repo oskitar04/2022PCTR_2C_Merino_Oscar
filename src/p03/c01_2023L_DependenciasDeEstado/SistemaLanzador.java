@@ -8,10 +8,9 @@ public class SistemaLanzador {
 	
 	public static void main(String[] args) {
 		
-		
 		//TODO VARIABLES 
 			// TODO Juego
-		IJuego partida = new Juego(); //Parentesis por que es un objeto
+		IJuego partida = new Juego(8); //Ponemos un numero cualquiera para evitar el error
 		
 		//IJuego enemigo = new ActividadEnemiga(int tipoEnemigo, IJuego iJuego);
 		
