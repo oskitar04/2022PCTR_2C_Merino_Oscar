@@ -1,14 +1,17 @@
 package p03.c01_2023L_DependenciasDeEstado;
+import java.util.concurrent.TimeUnit;
 
 import java.util.Hashtable; //Esto es para improtar el hashtable
 
 public class Juego implements IJuego{//Se implementa la interfaz juego
 	
 	// TODO Nº de enemigos
-	// TODO Nº de enemigos/tipo Hashtable<String, Integer>    --El hashtable es un diccionario de datos
+	// TODO Nº de enemigos/tipo Hashtable<Integer, Integer>    --El hashtable es un diccionario de datos
+	// TODO Nº de enemigos eliminados/tipo Hashtable<Integer, Integer>
 
 	private int EnemigosTotales;
 	private Hashtable<Integer, Integer> EnemigosTipo; //El nombre del hashtable es PersonasPuerta
+	private Hashtable<Integer, Integer> EnemigosEliminadosTipo;
 	
 	
 	
@@ -16,17 +19,14 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 		
 		EnemigosTotales = 0;
 		
-		EnemigosTipo = new Hashtable <>(); //Esto es un uevo hashtable, al ser un nuevo objeto se ponen parentesis, y los <> es por el hashtable, no hace falta poner nada en el parentesis por que va vacío		
+		EnemigosTipo = new Hashtable <>(); //Esto es un nuevo hashtable, al ser un nuevo objeto se ponen parentesis, y los <> es por el hashtable, no hace falta poner nada en el parentesis por que va vacío
+		
+		EnemigosEliminadosTipo = new Hashtable<>();
 	}
 	//@Override
-	public synchronized void generarEnemigo(IJuego tipoEne) {//El synchronized se usa para sincronizar a la hora de contar
+	/*public synchronized void generarEnemigo(IJuego tipoEne) {//El synchronized se usa para sincronizar a la hora de contar
 		
 		// TODO Inicializar claves (del diccionario)
-		//Primero comprobar que claves hay
-		/*if(EnemigosTipo.containsKey(genEne)==false) {
-			EnemigosTipo.put(genEne, 0); //En caso de que la puerta no exista, esto la crea, el 0 es por que no tenemos personas que hayan entrado por la puerta, la puerta se acaba de crear. El presi la ha inagurado
-			//El put es para meter valores
-		}*/
 		if(EnemigosTipo.containsKey(tipoEne)==true) {
 			int contene = EnemigosTipo.get(tipoEne);
 			EnemigosTipo.put(tipoEne, contene + 1);
@@ -48,22 +48,23 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 		}
 		//EnemigosTipo.put(genEne, contPuerta);
 		
-		/*float tiempo = System.currentTimeMillis();
+		
+		
+		float tiempo = System.currentTimeMillis();
 		tiempo = tiempo/2;
-		*/ //Tiempo de entrada a la puerta
+		//Tiempo de entrada a la puerta
 		//imprimirInfo(genEne);
 		
 		// TODO Comprobar el invariante
 		//checkInvariante();
 		//Falta declararla
-		/*protected void checkInvariante(){
+		protected void checkInvariante(){
 			assert suamrContadorPuerta() == NroPerTot : "INV la suma";
 		}
 		
 		private int sumarContadorPuerta() {
 			return;
 		}
-		*/
 	}
 	
 	/*private void imprimirInfo(String puerta) {
@@ -71,7 +72,7 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 		System.out.println("--> Personas en el parque " + NroPerTot + " tiempo: Nulo ");
 	}*/
 	@Override //Se implementan los metodos de la Interfaz Juego
-	public void generarEnemigo(int tipoEne) {
+	public synchronized void generarEnemigo(int tipoEne) {
 		// TODO Auto-generated method stub
 		if(EnemigosTipo.containsKey(tipoEne)) {
 			int cantidad = EnemigosTipo.get(tipoEne);
@@ -81,7 +82,7 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 		}
 	}
 	@Override
-	public void eliminarEnemigo(int tipoEne) {
+	public synchronized void eliminarEnemigo(int tipoEne) {
 		// TODO Auto-generated method stub
 		if(EnemigosTipo.containsKey(tipoEne)) {
 			int cantidad = EnemigosTipo.get(tipoEne);

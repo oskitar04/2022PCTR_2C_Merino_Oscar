@@ -1,4 +1,5 @@
 package p03.c01_2023L_DependenciasDeEstado;
+import java.util.concurrent.TimeUnit;
 // Las interfaces no se implementan los metodos, solo se definen
 public interface IJuego {
 	

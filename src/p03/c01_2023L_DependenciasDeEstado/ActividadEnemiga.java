@@ -1,4 +1,5 @@
 package p03.c01_2023L_DependenciasDeEstado;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -8,30 +9,33 @@ import java.util.logging.Level;
 public class ActividadEnemiga implements Runnable {//El implements es para que sea un clase hilo
 
 	// TODO Parque
-	private int tipoEnemigo; //Es un entero
+	private int tipoEnemigo; //Es un entero para los tipos de enemigo
 
 	// TODO Puerta
-	private IJuego IJuego; //Es un tipo IJuego
+	private IJuego iJuego; //Es un tipo IJuego del interfaz
 	
+	private int M; //Numero maximo de enemigos
 	private SistemaLanzador sistemalanzador;
 	// TODO Constructor 
 	
 	public ActividadEnemiga(int tipoEnemigo, IJuego iJuego) {
 		this.tipoEnemigo = tipoEnemigo; //El this se utiliza para referirme a mi clase
-		this.IJuego = iJuego;
+		this.iJuego = iJuego;
 	}
 	
 	@Override
 	public void run() {
-		this.sistemalanzador = sistemalanzador;
+		//this.sistemalanzador = sistemalanzador;
 		// TODO Auto-generated method stub
-		for(int i = 0; ; i++) {
+		for(int i = 0; i< M ; i++) {
 			int mimir = (int) Math.random()*5+1;
 			try {
 				// TODO Dormir aleatorio 1-5s	
-				Thread.sleep(mimir*1000);
+				//Thread.sleep(mimir*1000);
+				//La siguiente forma es la que pide en la practica de segunda convocatoria
+				TimeUnit.MILLISECONDS.sleep(mimir*1000);
 				//sistemaLanzador.hilo_enemigo(puerta);
-				//sistemalanzador.mimirEnemigo();
+				sistemalanzador.hilo_Enemigo("T"); //MIRAR ESTO A VER COMO LO ARREGLO
 				System.out.println("El Enemigo duerme");
 			}catch(InterruptedException e) {
 				e.printStackTrace();
