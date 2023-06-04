@@ -8,7 +8,7 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 	// TODO Nº de enemigos/tipo Hashtable<String, Integer>    --El hashtable es un diccionario de datos
 
 	private int EnemigosTotales;
-	private Hashtable<String, Integer> EnemigosTipo; //El nombre del hashtable es PersonasPuerta
+	private Hashtable<Integer, Integer> EnemigosTipo; //El nombre del hashtable es PersonasPuerta
 	
 	
 	
@@ -19,7 +19,7 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 		EnemigosTipo = new Hashtable <>(); //Esto es un uevo hashtable, al ser un nuevo objeto se ponen parentesis, y los <> es por el hashtable, no hace falta poner nada en el parentesis por que va vacío		
 	}
 	//@Override
-	public synchronized void generarEnemigo(IJuego genEne) {//El synchronized se usa para sincronizar a la hora de contar
+	public synchronized void generarEnemigo(IJuego tipoEne) {//El synchronized se usa para sincronizar a la hora de contar
 		
 		// TODO Inicializar claves (del diccionario)
 		//Primero comprobar que claves hay
@@ -27,26 +27,25 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 			EnemigosTipo.put(genEne, 0); //En caso de que la puerta no exista, esto la crea, el 0 es por que no tenemos personas que hayan entrado por la puerta, la puerta se acaba de crear. El presi la ha inagurado
 			//El put es para meter valores
 		}*/
-		if(EnemigosTipo.containsKey(genEne)==true) {
-			EnemigosTipo.put(genEne, 1);
+		if(EnemigosTipo.containsKey(tipoEne)==true) {
+			int contene = EnemigosTipo.get(tipoEne);
+			EnemigosTipo.put(tipoEne, contene + 1);
 		}
+		
 		
 		
 		// TODO Actualizar los contadores
 		EnemigosTotales = EnemigosTotales + 1;
 		
-		int gente = EnemigosTipo.get(genEne); //El get en este caso solo es para el hashtable
+		int gente = EnemigosTipo.get(tipoEne); //El get en este caso solo es para el hashtable
 		//EnemigosTipo.put(genEne, (gente+1)); //Esto lo actualiza y hace que entre la gente en este caso
 		System.out.println(gente);
 		
 		// TODO Mensaje
 		
-		if(EnemigosTipo.get(genEne) == null) {
-			EnemigosTipo.put(genEne, 0);
+		if(EnemigosTipo.get(tipoEne) == null) {
+			EnemigosTipo.put(tipoEne, 0);
 		}
-		
-		Integer EnemigosT = EnemigosTipo.get(genEne);
-		EnemigosT = EnemigosT + 1;
 		//EnemigosTipo.put(genEne, contPuerta);
 		
 		/*float tiempo = System.currentTimeMillis();
@@ -67,21 +66,38 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 		*/
 	}
 	
-	private void imprimirInfo(String puerta) {
+	/*private void imprimirInfo(String puerta) {
 		System.out.println("Entrada al parque por puerta " + puerta);
 		System.out.println("--> Personas en el parque " + NroPerTot + " tiempo: Nulo ");
-	}
+	}*/
 	@Override //Se implementan los metodos de la Interfaz Juego
-	public void generarEnemigo(int genEne) {
+	public void generarEnemigo(int tipoEne) {
 		// TODO Auto-generated method stub
-		Juego.get(generarEnemigo);
+		if(EnemigosTipo.containsKey(tipoEne)) {
+			int cantidad = EnemigosTipo.get(tipoEne);
+			EnemigosTipo.put(tipoEne, cantidad + 1);
+		}else {
+			EnemigosTipo.put(tipoEne,1);
+		}
 	}
 	@Override
-	public void eliminarEnemigo(int eliEne) {
+	public void eliminarEnemigo(int tipoEne) {
 		// TODO Auto-generated method stub
+		if(EnemigosTipo.containsKey(tipoEne)) {
+			int cantidad = EnemigosTipo.get(tipoEne);
+			if(cantidad > 1) {
+				EnemigosTipo.put(tipoEne, cantidad - 1);
+			}else {
+				EnemigosTipo.remove(tipoEne);
+			}
+		}
 		
 	}
 
+	//Función para obtener la cantidad de enemigos de un tipo
+	public int getCantidadEnemigosTipo(int tipoEne) {
+		return EnemigosTipo.getOrDefault(tipoEne,0);
+	}
 	
 
 	

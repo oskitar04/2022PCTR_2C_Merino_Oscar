@@ -3,6 +3,8 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 
+
+
 public class ActividadEnemiga implements Runnable {//El implements es para que sea un clase hilo
 
 	// TODO Parque

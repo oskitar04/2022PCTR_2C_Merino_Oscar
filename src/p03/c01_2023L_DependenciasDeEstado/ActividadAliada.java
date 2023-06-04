@@ -73,5 +73,4 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 	*/
 		
 		//ACABAR ESTA PARTE
-		//Thread.sleep(random(1000-5000)));
-} 
+		//Thread.sleep(random(1000-5000))); 
