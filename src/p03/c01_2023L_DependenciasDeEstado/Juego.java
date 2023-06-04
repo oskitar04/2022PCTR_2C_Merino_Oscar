@@ -10,17 +10,18 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 	// TODO contadores de Nº de enemigos eliminados/tipo --> Hashtable<Integer, Integer>
 
 	private int contadorEnemigosTotales;
-	private Hashtable<Integer, Integer> contadoresEnemigosTipo; //El nombre del hashtable es PersonasPuerta
+	private Hashtable<Integer, Integer> contadoresEnemigosTipo; 
 	private Hashtable<Integer, Integer> contadoresEliminadosTipo;
+	private int MAXENEMIGOS;
+	private int MINENEMIGOS = 0;
 	
-	
-	public Juego() {//Esto es el metodo constructor, no tiene void ni int ni su madre
+	public Juego(MAXENEMIGOS, MINENEMIGOS) {//Esto es el metodo constructor, no tiene void ni int ni su madre
 		
 		contadorEnemigosTotales = 0;
 		
-		contadoresEnemigosTipo = new Hashtable <>(); //Esto es un nuevo hashtable, al ser un nuevo objeto se ponen parentesis, y los <> es por el hashtable, no hace falta poner nada en el parentesis por que va vacío
+		contadoresEnemigosTipo = new Hashtable<Integer,Integer>(MAXENEMIGOS,MINENEMIGOS); //Esto es un nuevo hashtable, al ser un nuevo objeto se ponen parentesis, y los <> es por el hashtable, no hace falta poner nada en el parentesis por que va vacío
 		
-		contadoresEliminadosTipo = new Hashtable<>();
+		contadoresEliminadosTipo = new Hashtable<Integer, Integer>(MAXENEMIGOS,MINENEMIGOS);
 	}
 	//@Override
 	/*public synchronized void generarEnemigo(IJuego tipoEne) {//El synchronized se usa para sincronizar a la hora de contar
@@ -30,11 +31,6 @@ public class Juego implements IJuego{//Se implementa la interfaz juego
 			int contene = EnemigosTipo.get(tipoEne);
 			EnemigosTipo.put(tipoEne, contene + 1);
 		}
-		
-		
-		
-		// TODO Actualizar los contadores
-		EnemigosTotales = EnemigosTotales + 1;
 		
 		int gente = EnemigosTipo.get(tipoEne); //El get en este caso solo es para el hashtable
 		//EnemigosTipo.put(genEne, (gente+1)); //Esto lo actualiza y hace que entre la gente en este caso
