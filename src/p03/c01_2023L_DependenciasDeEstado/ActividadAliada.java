@@ -26,10 +26,10 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 		this.sistemalanzador = sistemalanzador;
 		// TODO Auto-generated method stub
 		for(int i = 0; ; i++) {
-			int mimir = (int) Math.random()*5+1;
+			int cama = (int) Math.random()*5+1;
 			try {
 				// TODO Dormir aleatorio 1-5s	
-				Thread.sleep(mimir*1000);
+				Thread.sleep(cama*1000);
 				//sistemaLanzador.hilo_enemigo(puerta);
 				//sistemalanzador.mimirEnemigo();
 				System.out.println("El Enemigo duerme");
