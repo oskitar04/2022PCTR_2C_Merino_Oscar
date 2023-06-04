@@ -3,28 +3,31 @@ import java.util.concurrent.TimeUnit;
 
 public class SistemaLanzador {
 	
+	public SistemaLanzador() { //método constructor, DE MOMENTO VACIA PORQUE NO SE QUE TIENE QUE HACER TODAVIA, creo que va vacia
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		
 		//TODO VARIABLES 
 			// TODO Juego
-		Juego enemigo = new Juego(); //Parentesis por que es un objeto
-		//enemigo.ActividadEnemiga(1, interfaz); //Esto es para que llame a la puerta de la clase Parque del metodo entrarAlParque
+		IJuego partida = new Juego(); //Parentesis por que es un objeto
 		
-		Juego aliado = new Juego(); //Parentesis por que es un objeto
-		//aliado.ActividadAliada(2, interfaz); //Esto es para que llame a la puerta de la clase Parque del metodo entrarAlParque
+		//IJuego enemigo = new ActividadEnemiga(int tipoEnemigo, IJuego iJuego);
 		
-		IJuego personaje = null;
-		IJuego interfaz = null;
-		
-		// TODO Crear los hilos
+		System.out.println("Prueba de que sale algo por pantalla para comenzar la partida");
+
 		// TODO Lanzar los hilos
 		
-		Thread hilo_Enemigo = new Thread(new ActividadEnemiga(1, personaje));
-		hilo_Enemigo.start();
-		Thread hilo_Aliado = new Thread(new ActividadEnemiga(2, interfaz));
-		hilo_Aliado.start();
-		
+		for(int i = 0; i < Integer.parseInt(args[0]); i++){
+			// TODO Crear los hilos y postreriormente lanzarlos
+			Thread generar = new Thread(new ActividadEnemiga(i, partida));
+			generar.start();
+			Thread eliminar = new Thread(new ActividadAliada(i,partida));
+			eliminar.start();
+			
+		}
 		
 	}
 
