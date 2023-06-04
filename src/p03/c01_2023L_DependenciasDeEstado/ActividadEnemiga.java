@@ -68,6 +68,5 @@ public class ActividadEnemiga implements Runnable {//El implements es para que s
 	}
 	*/
 		
-		//ACABAR ESTA PARTE
-		//Thread.sleep(random(1000-5000)));
+
 } 

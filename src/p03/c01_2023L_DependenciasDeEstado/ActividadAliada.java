@@ -41,7 +41,6 @@ public class ActividadAliada implements Runnable {//El implements es para que se
 	
 	
 	
-	
 	/*
 	@Override
 	public void run() {

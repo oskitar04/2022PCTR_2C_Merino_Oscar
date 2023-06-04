@@ -4,51 +4,50 @@ import java.util.Hashtable; //Esto es para improtar el hashtable
 
 public class Juego implements IJuego{//Se implementa la interfaz juego
 	
-	// TODO Nº de personas totales 
-	// TODO Nº de personas/puerta Hashtable<String, Integer>    --El hashtable es un diccionario de datos
+	// TODO Nº de enemigos
+	// TODO Nº de enemigos/tipo Hashtable<String, Integer>    --El hashtable es un diccionario de datos
 
-	private int NroPerTot;
-	private Hashtable<String, Integer> PersonasPuerta; //El nombre del hashtable es PersonasPuerta
+	private int EnemigosTotales;
+	private Hashtable<String, Integer> EnemigosTipo; //El nombre del hashtable es PersonasPuerta
 	
 	public Juego() {//Esto es el metodo constructor, no tiene void ni int ni su madre
 		
-		NroPerTot = 0;
+		EnemigosTotales = 0;
 		
-		PersonasPuerta= new Hashtable <>(); //Esto es un uevo hashtable, al ser un nuevo objeto se ponen parentesis, y los <> es por el hashtable, no hace falta poner nada en el parentesis por que va vacío
-		
+		EnemigosTipo = new Hashtable <>(); //Esto es un uevo hashtable, al ser un nuevo objeto se ponen parentesis, y los <> es por el hashtable, no hace falta poner nada en el parentesis por que va vacío		
 	}
-	@Override
-	public synchronized void entrarAlParque(String puerta) {//El synchronized se usa para sincronizar a la hora de contar
+	//@Override
+	public synchronized void generarEnemigo(String genEne) {//El synchronized se usa para sincronizar a la hora de contar
 		
 		// TODO Inicializar claves (del diccionario)
 		//Primero comprobar que claves hay
-		if(PersonasPuerta.containsKey(puerta)==false) {
-			PersonasPuerta.put(puerta, 0); //En caso de que la puerta no exista, esto la crea, el 0 es por que no tenemos personas que hayan entrado por la puerta, la puerta se acaba de crear. El presi la ha inagurado
+		if(EnemigosTipo.containsKey(genEne)==false) {
+			EnemigosTipo.put(genEne, 0); //En caso de que la puerta no exista, esto la crea, el 0 es por que no tenemos personas que hayan entrado por la puerta, la puerta se acaba de crear. El presi la ha inagurado
 			//El put es para meter valores
 		}
 		
 		
 		// TODO Actualizar los contadores
-		NroPerTot = NroPerTot + 1;
+		EnemigosTotales = EnemigosTotales + 1;
 		
-		int gente = PersonasPuerta.get(puerta); //El get en este caso solo es para el hashtable
-		PersonasPuerta.put(puerta, (gente+1)); //Esto lo actualiza y hace que entre la gente en este caso
+		int gente = EnemigosTipo.get(genEne); //El get en este caso solo es para el hashtable
+		EnemigosTipo.put(genEne, (gente+1)); //Esto lo actualiza y hace que entre la gente en este caso
 		System.out.println(gente);
 		
 		// TODO Mensaje
 		
-		if(PersonasPuerta.get(puerta) == null) {
-			PersonasPuerta.put(puerta, 0);
+		if(EnemigosTipo.get(genEne) == null) {
+			EnemigosTipo.put(genEne, 0);
 		}
 		
-		Integer contPuerta = PersonasPuerta.get(puerta);
+		Integer contPuerta = EnemigosTipo.get(genEne);
 		contPuerta = contPuerta + 1;
-		PersonasPuerta.put(puerta, contPuerta);
+		EnemigosTipo.put(genEne, contPuerta);
 		
 		/*float tiempo = System.currentTimeMillis();
 		tiempo = tiempo/2;
 		*/ //Tiempo de entrada a la puerta
-		imprimirInfo(puerta);
+		imprimirInfo(genEne);
 		
 		// TODO Comprobar el invariante
 		//checkInvariante();
