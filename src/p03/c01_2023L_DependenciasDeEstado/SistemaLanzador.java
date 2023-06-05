@@ -10,7 +10,7 @@ public class SistemaLanzador {
 		
 		//TODO VARIABLES 
 			// TODO Juego
-		IJuego partida = new Juego(8); //Ponemos un numero cualquiera para evitar el error
+		IJuego partida = new Juego(4); //Ponemos un numero cualquiera para evitar el error
 		
 		//IJuego enemigo = new ActividadEnemiga(int tipoEnemigo, IJuego iJuego);
 		
