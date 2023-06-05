@@ -12,8 +12,6 @@ public class SistemaLanzador {
 			// TODO Juego
 		IJuego partida = new Juego(4); //Ponemos un numero cualquiera para evitar el error
 		
-		//IJuego enemigo = new ActividadEnemiga(int tipoEnemigo, IJuego iJuego);
-		
 		System.out.println("Prueba de que sale algo por pantalla para comenzar la partida");
 
 		// TODO Lanzar los hilos

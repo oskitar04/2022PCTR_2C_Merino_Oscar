@@ -41,7 +41,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	@Override // Se implementan los metodos de la Interfaz Juego
 	public synchronized void generarEnemigo(int tipoEne) {
 		// Miramos si el enemigo existe antes de crearlo
-
+		comprobarAntesDeGenerar();
 		// TODO Auto-generated method stub
 		if (contadoresEnemigosTipo.containsKey(tipoEne)) {
 			int cantidad = contadoresEnemigosTipo.get(tipoEne);
@@ -49,30 +49,36 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 		} else {
 			contadoresEnemigosTipo.put(tipoEne, 1);
 		}
+		contadorEnemigosTotales++;// Se aumenta porque se crea un enemigo
+		checkInvariante();
+		imprimirInfo(tipoEne, "Generado");
 
-		imprimirInfo(cantidad, cadena);
 	}
 
 	@Override
 	public synchronized void eliminarEnemigo(int tipoEne) {
+		// Miramos si el numero de enemigos es mas que 0 para antes de eliminarlo
+		comprobarAntesDeEliminar();
 		// TODO Auto-generated method stub
 		if (contadoresEliminadosTipo.containsKey(tipoEne)) {
 			int cantidad = contadoresEliminadosTipo.get(tipoEne);
-			if (cantidad > 1) {
-				contadoresEliminadosTipo.put(tipoEne, cantidad - 1);
-			} else {
-				contadoresEliminadosTipo.remove(tipoEne);
-			}
+			contadoresEnemigosTipo.put(tipoEne, cantidad + 1);
+		} else {
+			contadoresEliminadosTipo.put(tipoEne, 0);
 		}
+	contadorEnemigosTotales--;// Se disminue porque se crea un enemigo
 
-		imprimirInfo(1, cadena);
+	checkInvariante();
+
+	imprimirInfo(tipoEne, "Eliminado");
+		
 	}
 
 	private void imprimirInfo(int tipoEnemigo, String informacion) {
 		// this.MAXENEMIGOS = MAXENEMIGOS;
 		// System.out.println("Generado enemigo tipo " + contadoresEnemigosTipo );
 		for (int i = 0; i < MAXENEMIGOS; i++) {
-			System.out.println("Generado enemigo tipo " + contadoresEnemigosTipo);
+			System.out.println(cadena + " enemigo tipo " + contadoresEnemigosTipo);
 			System.out.println("--> Enemigos totales: " + contadorEnemigosTotales);
 			for (int j = 0; j > MINENEMIGOS; j--) {
 				int valorenemigos = contadoresEnemigosTipo.get(tipoEnemigo);
@@ -102,6 +108,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	}
 
 	protected void checkInvariante() {
+		// TODO Comprobar el invariante
 		assert contadorEnemigosTotales < MINENEMIGOS : "Se excede el numero de enemigos minimos";
 		assert contadorEnemigosTotales > MAXENEMIGOS : "Se excede el numero maximo de enemigos";
 		int cantidadSumaContadores = sumarContadores();
@@ -110,14 +117,13 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	}
 
 	protected void comprobarAntesDeGenerar() {
+		//Collection<Integer> comprobar = contadoresEnemigosTipo.values();
+		while (contadoresEnemigosTipo.get(cadena) > 0 && contadoresEnemigosTipo.get(cadena) > contadorEnemigosTotales) {
 
+		}
 	}
 
 	protected void comprobarAntesDeEliminar() {
-
+		
 	}
-	// TODO Comprobar el invariante
-	// checkInvariante();
-	// Falta declararla
-
 }
