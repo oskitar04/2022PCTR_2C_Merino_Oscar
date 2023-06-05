@@ -9,7 +9,8 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	// TODO contador de Nº de enemigos
 	// TODO contadores de Nº de enemigos/tipo --> Hashtable<Integer, Integer> --El
 	// TODO hashtable es un diccionario de datos
-	// TODO contadores de Nº de enemigos eliminados/tipo --> Hashtable<Integer,Integer>
+	// TODO contadores de Nº de enemigos eliminados/tipo -->
+	// Hashtable<Integer,Integer>
 
 	private int contadorEnemigosTotales;
 	private Hashtable<Integer, Integer> contadoresEnemigosTipo;
@@ -22,8 +23,6 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 		this.MAXENEMIGOS = MAXENEMIGOS;
 
 		this.contadorEnemigosTotales = 0;
-		
-		tiposEnemigos = MAXENEMIGOS;
 
 		// inicializar los hashtable
 		this.contadoresEnemigosTipo = new Hashtable<>(); // Esto es un nuevo hashtable, al ser un nuevo objeto se ponen
@@ -37,24 +36,22 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 		// Miramos si el enemigo existe antes de crearlo
 		if (tipoEne != 0) {
 			comprobarAntesDeGenerar(tipoEne);
-		} else {
-
-			// TODO Auto-generated method stub
-			if (contadoresEnemigosTipo.containsKey(tipoEne)) {
-				int cantidad = contadoresEnemigosTipo.get(tipoEne);
-				
-				
-				
-				System.out.println("MUERTE SUBITA");
-				
-				
-				
-				contadoresEnemigosTipo.put(tipoEne, cantidad + 1);
-			} else {
-				contadoresEnemigosTipo.put(tipoEne, 1);
-			}
 		}
+
+		if(contadoresEliminadosTipo.contains(tipoEne) == false) {
+			contadoresEliminadosTipo.put(tipoEne, 0);
+		}
+		
+		if (contadoresEnemigosTipo.containsKey(tipoEne)) {
+			int cantidad = contadoresEnemigosTipo.get(tipoEne);
+
+			contadoresEnemigosTipo.put(tipoEne, cantidad + 1);
+		} else {
+			contadoresEnemigosTipo.put(tipoEne, 1);
+		}
+
 		contadorEnemigosTotales++;// Se aumenta porque se crea un enemigo
+
 		checkInvariante();
 		imprimirInfo(tipoEne, "Generado");
 		notifyAll();
@@ -64,20 +61,13 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	@Override
 	public synchronized void eliminarEnemigo(int tipoEne) {
 		// Miramos si el numero de enemigos es mas que 0 para antes de eliminarlo
-		if (tipoEne != 0) {
-			comprobarAntesDeEliminar(tipoEne);
-		}
-		// TODO Auto-generated method stub
+
+		comprobarAntesDeEliminar(tipoEne);
+
 		if (contadoresEliminadosTipo.containsKey(tipoEne)) {
 			int cantidad = contadoresEliminadosTipo.get(tipoEne);
-			
-			
-			
-			System.out.println("AGUACATE");
-			
-			
-			
-			contadoresEnemigosTipo.put(tipoEne, cantidad + 1);
+
+			contadoresEnemigosTipo.put(tipoEne, cantidad - 1);
 		} else {
 			contadoresEliminadosTipo.put(tipoEne, 0);
 		}
@@ -92,17 +82,14 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	}
 
 	private void imprimirInfo(int tipoEne, String informacion) {
-		for (int i = 0; i < MAXENEMIGOS; i++) {
-			System.out.println(informacion + " enemigo tipo " + tipoEne);
-			/*System.out.println("--> Enemigos totales: " + contadorEnemigosTotales);
-			for (int j : contadoresEnemigosTipo.keySet()) {
-				// int valorEnemigos = contadoresEnemigosTipo.get(j);
-				// int valoresEliminados = contadoresEliminadosTipo.get(j);
-				System.out.println("--> Enemigos tipo " + j + ": " + contadoresEnemigosTipo.get(j)
-						+ " ------ [Eliminados:" + contadoresEliminadosTipo.get(j) + "]");
-			}*/
-			System.out.println(" ");
+		System.out.println(informacion + " enemigo tipo " + tipoEne);
+		System.out.println("--> Enemigos totales: " + contadorEnemigosTotales);
+		for (int j : contadoresEnemigosTipo.keySet()) {
+			System.out.println("--> Enemigos tipo " + j + ": " + contadoresEnemigosTipo.get(j) + " ------ [Eliminados:"
+					+ contadoresEliminadosTipo.get(j) + "]");
 		}
+		System.out.println(" ");
+
 	}
 
 	public int sumarContadores() {
@@ -125,7 +112,6 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	}
 
 	protected void checkInvariante() {
-		// TODO Comprobar el invariante
 		assert contadorEnemigosTotales < MINENEMIGOS : "Se excede el numero de enemigos minimos";
 		assert contadorEnemigosTotales > MAXENEMIGOS : "Se excede el numero maximo de enemigos";
 		int cantidadSumaContadores = sumarContadores();
@@ -133,9 +119,9 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 
 	}
 
-	protected void comprobarAntesDeGenerar(int tipoEne) {
+	protected synchronized void comprobarAntesDeGenerar(int tipoEne) {
 		int enemigoAntes = tipoEne - 1;
-		while (contadoresEnemigosTipo.contains(enemigoAntes) == false || contadorEnemigosTotales <= 0) {
+		while (contadorEnemigosTotales >= MAXENEMIGOS || !contadoresEnemigosTipo.containsKey(enemigoAntes) || contadorEnemigosTotales <= 0) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -144,8 +130,8 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 		}
 	}
 
-	protected void comprobarAntesDeEliminar(int tipoEne) {
-		while (contadoresEnemigosTipo.contains(tipoEne) == false || contadoresEliminadosTipo.get(tipoEne) <= 0) {
+	protected synchronized void comprobarAntesDeEliminar(int tipoEne) {
+		while (contadorEnemigosTotales <= MINENEMIGOS || !contadoresEliminadosTipo.containsKey(tipoEne) || contadoresEliminadosTipo.get(tipoEne) <= 0 ) {
 			try {
 				wait();
 			} catch (InterruptedException e) {

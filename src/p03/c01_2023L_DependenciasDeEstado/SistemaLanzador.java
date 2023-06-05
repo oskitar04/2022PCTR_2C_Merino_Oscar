@@ -10,17 +10,18 @@ public class SistemaLanzador {
 		
 		//TODO VARIABLES 
 			// TODO Juego
-		int MAXIMO = 6; //Ponemos un numero cualquiera para evitar el error
-		int TOTAL = 0;
-		IJuego partida = new Juego(MAXIMO,TOTAL); 
+		int MAXIMO = 5; //Ponemos un numero cualquiera para evitar el error
+		int TOTAL = 4;
+		IJuego partida = new Juego(TOTAL, MAXIMO); 
 
 		// TODO Lanzar los hilos
 		
 		for(int i = 0; i < MAXIMO; i++){
 			// TODO Crear los hilos y postreriormente lanzarlos
 			Thread generar = new Thread(new ActividadEnemiga(i, partida));
+			Thread eliminar = new Thread(new ActividadAliada(i, partida));
+
 			generar.start();
-			Thread eliminar = new Thread(new ActividadAliada(i,partida));
 			eliminar.start();
 			
 		}

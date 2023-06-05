@@ -20,14 +20,14 @@ public class ActividadEnemiga implements Runnable {// El implements es para que 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		for (int i = 0; i < 50; i++) {
-			Juego.generarEnemigo(tipoEne);
-			int mimir = (int) Math.random() * 5 + 1;
+		for (int i = 0; i < 10; i++) {
 			try {
-				System.out.println("El Enemigo se dormirá durante " + mimir + " segundos");
+				int mimir = (int) Math.random() * 5 + 1;
+				Juego.generarEnemigo(tipoEne);
+				//System.out.println("El Enemigo se dormirá durante " + mimir + " segundos");
 				// La siguiente forma es la que pide en la practica de segunda convocatoria
 				TimeUnit.MILLISECONDS.sleep(mimir * 1000);
-				System.out.println("El Enemigo ha dormido ya ENEMIGO");
+				//System.out.println("El Enemigo ha dormido ya ENEMIGO");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
