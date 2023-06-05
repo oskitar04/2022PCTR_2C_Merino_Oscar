@@ -20,7 +20,7 @@ public class ActividadAliada implements Runnable {// El implements es para que s
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		for (int i = 0;i < 10; i++) {
+		for (int i = 0;i < 50; i++) {
 			Juego.eliminarEnemigo(tipoEne);
 			int mimir = (int) Math.random() * 5 + 1;
 			try {

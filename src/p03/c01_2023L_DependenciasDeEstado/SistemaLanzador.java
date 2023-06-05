@@ -11,7 +11,8 @@ public class SistemaLanzador {
 		//TODO VARIABLES 
 			// TODO Juego
 		int MAXIMO = 6; //Ponemos un numero cualquiera para evitar el error
-		IJuego partida = new Juego(MAXIMO); 
+		int TOTAL = 0;
+		IJuego partida = new Juego(MAXIMO,TOTAL); 
 
 		// TODO Lanzar los hilos
 		
