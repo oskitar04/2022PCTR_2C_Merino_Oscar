@@ -10,13 +10,12 @@ public class SistemaLanzador {
 		
 		//TODO VARIABLES 
 			// TODO Juego
-		IJuego partida = new Juego(4); //Ponemos un numero cualquiera para evitar el error
-		
-		System.out.println("Prueba de que sale algo por pantalla para comenzar la partida");
+		int MAXIMO = 6; //Ponemos un numero cualquiera para evitar el error
+		IJuego partida = new Juego(MAXIMO); 
 
 		// TODO Lanzar los hilos
 		
-		for(int i = 0; i < Integer.parseInt(args[0]); i++){
+		for(int i = 0; i < MAXIMO; i++){
 			// TODO Crear los hilos y postreriormente lanzarlos
 			Thread generar = new Thread(new ActividadEnemiga(i, partida));
 			generar.start();
@@ -24,6 +23,8 @@ public class SistemaLanzador {
 			eliminar.start();
 			
 		}
+		
+		System.out.println("Prueba de que sale algo por pantalla para comenzar la partida");
 		
 	}
 
