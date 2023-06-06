@@ -20,11 +20,11 @@ public class ActividadAliada implements Runnable {// El implements es para que s
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		for (int i = 0;i < 10; i++) {
+		for (int i = 0; i < 10; i++) {
 			try {
+				// TODO Dormir aleatorio 1-5s
 				int mimir = (int) Math.random() * 5 + 1;
 				Juego.eliminarEnemigo(tipoEne);
-				// TODO Dormir aleatorio 1-5s
 				//System.out.println("El Enemigo duerme: " + mimir);
 				TimeUnit.MILLISECONDS.sleep(mimir * 1000);
 				//System.out.println("El Enemigo ha dormido ya ALIADO");

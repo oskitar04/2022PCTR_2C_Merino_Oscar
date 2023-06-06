@@ -9,8 +9,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	// TODO contador de Nº de enemigos
 	// TODO contadores de Nº de enemigos/tipo --> Hashtable<Integer, Integer> --El
 	// TODO hashtable es un diccionario de datos
-	// TODO contadores de Nº de enemigos eliminados/tipo -->
-	// Hashtable<Integer,Integer>
+	// TODO contadores de Nº de enemigos eliminados/tipo -->Hashtable<Integer,Integer>
 
 	private int contadorEnemigosTotales;
 	private Hashtable<Integer, Integer> contadoresEnemigosTipo;
@@ -29,6 +28,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 															// parentesis, y los <> es por el hashtable, no hace falta
 															// poner nada en el parentesis por que va vacío
 		this.contadoresEliminadosTipo = new Hashtable<>();
+		
 	}
 
 	@Override // Se implementan los metodos de la Interfaz Juego
@@ -37,11 +37,9 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 		if (tipoEne != 0) {
 			comprobarAntesDeGenerar(tipoEne);
 		}
-
-		if(contadoresEliminadosTipo.contains(tipoEne) == false) {
+		if(!contadoresEliminadosTipo.containsKey(tipoEne)) {
 			contadoresEliminadosTipo.put(tipoEne, 0);
 		}
-		
 		if (contadoresEnemigosTipo.containsKey(tipoEne)) {
 			int cantidad = contadoresEnemigosTipo.get(tipoEne);
 
@@ -49,13 +47,11 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 		} else {
 			contadoresEnemigosTipo.put(tipoEne, 1);
 		}
-
 		contadorEnemigosTotales++;// Se aumenta porque se crea un enemigo
-
-		checkInvariante();
+				
 		imprimirInfo(tipoEne, "Generado");
+		checkInvariante();
 		notifyAll();
-
 	}
 
 	@Override
@@ -66,19 +62,17 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 
 		if (contadoresEliminadosTipo.containsKey(tipoEne)) {
 			int cantidad = contadoresEliminadosTipo.get(tipoEne);
-
-			contadoresEnemigosTipo.put(tipoEne, cantidad - 1);
+			contadoresEnemigosTipo.put(tipoEne, cantidad - 1);	
 		} else {
 			contadoresEliminadosTipo.put(tipoEne, 0);
 		}
+		
 		contadorEnemigosTotales--;// Se disminue porque se crea un enemigo
 
-		checkInvariante();
-
+		
 		imprimirInfo(tipoEne, "Eliminado");
-
+		checkInvariante();
 		notifyAll();
-
 	}
 
 	private void imprimirInfo(int tipoEne, String informacion) {
@@ -93,12 +87,11 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	}
 
 	public int sumarContadores() {
-		// Sirve para tener un contador de los enemigos que hay actualmente
+		//Sirve para tener un contador de los enemigos que hay actualmente
 		int contador = 0;
 
 		Collection<Integer> enemigosCreados = contadoresEnemigosTipo.values();
 		Collection<Integer> enemigosEliminados = contadoresEliminadosTipo.values();
-
 		for (Integer sumar : enemigosCreados) { // foreach
 			contador += sumar;
 		}
@@ -106,9 +99,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 		for (Integer restar : enemigosEliminados) { // foreach
 			contador -= restar;
 		}
-
 		return contador;
-
 	}
 
 	protected void checkInvariante() {
@@ -122,6 +113,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	protected synchronized void comprobarAntesDeGenerar(int tipoEne) {
 		int enemigoAntes = tipoEne - 1;
 		while (contadorEnemigosTotales >= MAXENEMIGOS || !contadoresEnemigosTipo.containsKey(enemigoAntes) || contadorEnemigosTotales <= 0) {
+		//while (contadorEnemigosTotales >= MAXENEMIGOS || !contadoresEnemigosTipo.containsKey(tipoEne) || contadorEnemigosTotales <= 0) {//Esto imprime hasta 10 enemigos totales
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -131,7 +123,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	}
 
 	protected synchronized void comprobarAntesDeEliminar(int tipoEne) {
-		while (contadorEnemigosTotales <= MINENEMIGOS || !contadoresEliminadosTipo.containsKey(tipoEne) || contadoresEliminadosTipo.get(tipoEne) <= 0 ) {
+		while (contadorEnemigosTotales <= MINENEMIGOS || !contadoresEliminadosTipo.containsKey(tipoEne) || contadoresEliminadosTipo.get(tipoEne) <= 0 ) {	
 			try {
 				wait();
 			} catch (InterruptedException e) {
