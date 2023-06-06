@@ -25,9 +25,7 @@ public class ActividadAliada implements Runnable {// El implements es para que s
 				// TODO Dormir aleatorio 1-5s
 				int mimir = (int) Math.random() * 5 + 1;
 				Juego.eliminarEnemigo(tipoEne);
-				//System.out.println("El Enemigo duerme: " + mimir);
 				TimeUnit.MILLISECONDS.sleep(mimir * 1000);
-				//System.out.println("El Enemigo ha dormido ya ALIADO");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

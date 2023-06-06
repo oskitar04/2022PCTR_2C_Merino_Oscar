@@ -10,7 +10,7 @@ public class SistemaLanzador {
 		
 		//TODO VARIABLES 
 			// TODO Juego
-		int MAXIMO = 5; //Ponemos un numero cualquiera para evitar el error
+		int MAXIMO = 5; //Ponemos un numero para definir un maximo
 		int TOTAL = 4;
 		IJuego partida = new Juego(TOTAL, MAXIMO); 
 
@@ -25,9 +25,5 @@ public class SistemaLanzador {
 			eliminar.start();
 			
 		}
-		
-		System.out.println("Prueba de que sale algo por pantalla para comenzar la partida");
-		
 	}
-
 }

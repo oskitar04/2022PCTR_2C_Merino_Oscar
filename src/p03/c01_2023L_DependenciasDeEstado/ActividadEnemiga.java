@@ -25,8 +25,7 @@ public class ActividadEnemiga implements Runnable {// El implements es para que 
 				// TODO Dormir aleatorio 1-5s
 				int mimir = (int) Math.random() * 5 + 1;
 				Juego.generarEnemigo(tipoEne);
-				//System.out.println("El Enemigo se dormirá durante " + mimir + " segundos");
-				// La siguiente forma es la que pide en la practica de segunda convocatoria
+				// La siguiente forma es la que pide la practica
 				TimeUnit.MILLISECONDS.sleep(mimir * 1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

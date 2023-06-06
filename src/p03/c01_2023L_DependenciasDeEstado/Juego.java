@@ -67,7 +67,7 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 			contadoresEliminadosTipo.put(tipoEne, 0);
 		}
 		
-		contadorEnemigosTotales--;// Se disminue porque se crea un enemigo
+		contadorEnemigosTotales--;// Se disminuye porque se elimina un enemigo
 
 		
 		imprimirInfo(tipoEne, "Eliminado");
@@ -113,7 +113,6 @@ public class Juego implements IJuego {// Se implementa la interfaz juego
 	protected synchronized void comprobarAntesDeGenerar(int tipoEne) {
 		int enemigoAntes = tipoEne - 1;
 		while (contadorEnemigosTotales >= MAXENEMIGOS || !contadoresEnemigosTipo.containsKey(enemigoAntes) || contadorEnemigosTotales <= 0) {
-		//while (contadorEnemigosTotales >= MAXENEMIGOS || !contadoresEnemigosTipo.containsKey(tipoEne) || contadorEnemigosTotales <= 0) {//Esto imprime hasta 10 enemigos totales
 			try {
 				wait();
 			} catch (InterruptedException e) {
